@@ -1,11 +1,19 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
+# My Portfolio
+This project is created using react (create-react-app). Firebase is used for the backend. Firebase Authentication, database, and storage are used in this project. 
+# Firebase account
+- create an account
+- create project
+- select web and get the code from there to connect to Firebase
+- save that code to config/firebase.js
+- always keep the key in the dot env file
+# ENV variable ( Firebase )
+- REACT_APP_FIREBASE_API_KEY 
+- REACT_APP_FIREBASE_AUTH_DOMAIN 
+- REACT_APP_FIREBASE_PROJECT_ID 
+- REACT_APP_FIREBASE_STORAGE_BUCKET 
+- REACT_APP_FIREBASE_MESSAGING_SENDER_ID
+- REACT_APP_FIREBASE_APP_ID
+- REACT_APP_FIREBASE_MEASUREMENT_ID
 ### `npm start`
 
 Runs the app in the development mode.\
