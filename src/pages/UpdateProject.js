@@ -110,9 +110,7 @@ const UpdateProject = () => {
         setImageUrls(pre => [...pre, url]);
       });
 
-
       console.log("updated successfully")
-      console.log()
     }catch(error){
       console.log(error)
     }
@@ -122,88 +120,90 @@ const UpdateProject = () => {
 
   return (
     <ProfileLayout>
-      <h1>Update Project</h1>
-      <form>
-        <input type="text"
-          placeholder='Project Name'
-          value={projectName}
-          onChange={(e)=> setProjectName(e.target.value)}
-          required
-        /><br/>
-        <input type="text"
-          placeholder='Project Link'
-          value={projectUrl}
-          onChange={(e)=> setProjectUrl(e.target.value)}
-          required
-        /><br/>
-        <textarea type="text"
-          placeholder='Descriptoin'
-          value={description}
-          onChange={(e)=> setDescription(e.target.value)}
-          required
-        /><br/>
-        {/* keyword and keyword list section */}
-        <div>
+      <div className='update_project'>
+        <h1>Update Project</h1>
+        <form>
           <input type="text"
-            placeholder='Keywords'
-            value={keyword}
-            onChange={(e)=> setKeyword(e.target.value)}
-          />
+            placeholder='Project Name'
+            value={projectName}
+            onChange={(e)=> setProjectName(e.target.value)}
+            required
+          /><br/>
+          <input type="text"
+            placeholder='Project Link'
+            value={projectUrl}
+            onChange={(e)=> setProjectUrl(e.target.value)}
+            required
+          /><br/>
+          <textarea type="text"
+            placeholder='Descriptoin'
+            value={description}
+            onChange={(e)=> setDescription(e.target.value)}
+            required
+          /><br/>
+          {/* keyword and keyword list section */}
+          <div>
+            <input type="text"
+              placeholder='Keywords'
+              value={keyword}
+              onChange={(e)=> setKeyword(e.target.value)}
+            />
 
-          <button 
-            onClick={(e)=>{
-              e.preventDefault()
-              setKeywordList((pre)=> [...pre, keyword]);
-              setKeyword("")
-            }}
-          >Add</button>
-          <button 
-            onClick={(e)=>{
-              e.preventDefault()
-              setKeywordList(keywordList.slice(0, keywordList.length - 1))
-            }}
-          >Delete</button><br/>
+            <button 
+              onClick={(e)=>{
+                e.preventDefault()
+                setKeywordList((pre)=> [...pre, keyword]);
+                setKeyword("")
+              }}
+            >Add</button>
+            <button 
+              onClick={(e)=>{
+                e.preventDefault()
+                setKeywordList(keywordList.slice(0, keywordList.length - 1))
+              }}
+            >Delete</button><br/>
 
-          {keywordList.map((word, index)=>{
-            return (
-              <span>
-                {`${index === 0? " "+word : ", "+word}`}
-              </span>)
-            })}          
-        </div>
+            {keywordList.map((word, index)=>{
+              return (
+                <span>
+                  {`${index === 0? " "+word : ", "+word}`}
+                </span>)
+              })}          
+          </div>
 
-        <button onClick={update}>Update</button>
-      </form><br/>
+          <button onClick={update}>Update</button>
+        </form><br/>
 
-      {/* image upload */}
-      <div>
-      <input 
-          type="file" 
-          accept='image/png, image/jpeg'
-          required 
-          onChange={(e)=>{setImageUpload(e.target.files[0])}}
-        />
-        <button onClick={uploadImage}>Upload</button>
-      </div>
-
-      {/* image show case  */}
-     {imageUrls.map((url)=>{
-      return (
+        {/* image upload */}
         <div>
-          <img src={url} alt={projectName+"app image"}/><br/>
-          <button onClick={()=> deleteImage(url)}>Delete</button>
-          
           <input 
-          type="file" 
-          accept='image/png, image/jpeg'
-          required 
-          onChange={(e)=>{setImageUpload(e.target.files[0])}}
+            type="file" 
+            accept='image/png, image/jpeg'
+            required 
+            onChange={(e)=>{setImageUpload(e.target.files[0])}}
           />
-          <button onClick={()=> updateImage(url)}>Update</button>
-          <br/><br/>
+          <button onClick={uploadImage}>Upload</button>
         </div>
-      )
-     })}
+
+        {/* image show case  */}
+        {imageUrls.map((url)=>{
+          return (
+            <div>
+              <img src={url} alt={projectName+"app image"}/><br/>
+              <button onClick={()=> deleteImage(url)}>Delete</button>
+              
+              <input 
+              type="file" 
+              accept='image/png, image/jpeg'
+              required 
+              onChange={(e)=>{setImageUpload(e.target.files[0])}}
+              />
+              <button onClick={()=> updateImage(url)}>Update</button>
+              <br/><br/>
+            </div>
+          )
+        })}
+      </div>
     </ProfileLayout>
   )
 }

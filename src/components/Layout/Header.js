@@ -5,7 +5,16 @@ const Header = () => {
     <nav>
         <ul>
             <li>
-                <NavLink to="/">Home</NavLink>
+                <NavLink to="#intro">Home</NavLink>
+            </li>
+            <li>
+                <NavLink to="#education">Education</NavLink>
+            </li>
+            <li>
+                <NavLink to="#skills">Skill's</NavLink>
+            </li>
+            <li>
+                <NavLink to="#projects">Project's</NavLink>
             </li>
         </ul>
     </nav>

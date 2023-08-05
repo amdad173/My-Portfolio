@@ -14,6 +14,10 @@ This project is created using react (create-react-app). Firebase is used for the
 - REACT_APP_FIREBASE_MESSAGING_SENDER_ID
 - REACT_APP_FIREBASE_APP_ID
 - REACT_APP_FIREBASE_MEASUREMENT_ID
+- document id of projects and skills collection
+    - REACT_APP_FIREBASE_PROFILE_ID
+    - REACT_APP_FIREBASE_SKILLS_ID
+
 ### `npm start`
 
 Runs the app in the development mode.\
