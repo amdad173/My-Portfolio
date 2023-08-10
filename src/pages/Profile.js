@@ -74,7 +74,7 @@ const Profile = () => {
 
   return (
     <ProfileLayout>
-        <div className='profile'>
+        <div className='container'>
           <h2>{user?.name}</h2>
           <div>
             <div>
@@ -87,7 +87,7 @@ const Profile = () => {
                 />
               <button onClick={()=> updateImage()}>Change Profile Photo</button>
             </div>
-            <input 
+            <textarea 
               type="text" 
               value={description}
               placeholder='Intorduce your self'

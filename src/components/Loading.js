@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 
-const Looding = () => {
+const Loading = () => {
   const [count, setCount]  = useState(3)
   const navigate = useNavigate();
 
@@ -10,7 +10,7 @@ const Looding = () => {
       setCount((preValue)=> --preValue)
     }, 1000);
     
-    count===0 && navigate("/login")
+    count===0 && navigate("/")
 
     return () => {
       clearInterval(interval)
@@ -18,10 +18,10 @@ const Looding = () => {
   }, [count, navigate])
   
   return (
-    <div>
+    <div className='loading'>
       <h1>loding.....</h1>
     </div>
   )
 }
 
-export default Looding
+export default Loading

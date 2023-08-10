@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { getDownloadURL, listAll, ref } from 'firebase/storage'
 import { storage } from '../config/firebase'
-
+import {AiOutlineArrowRight,AiOutlineArrowLeft } from "react-icons/ai"
 const Images = ({folder}) => {
     const [imageUrls, setImageUrls] = useState([])
+    const [count, setCount] = useState(0);
 
     const get_images = async ()=>{
         try{
@@ -23,10 +24,31 @@ const Images = ({folder}) => {
     },[])
 
   return (
-    <div>
-        {imageUrls.map((url, index)=>{
-           return <img src={url} key={index} alt="projet image" />
-        })}
+    <div className='image-container'>
+        <div className='image-slider'>
+            {imageUrls.map((url, index)=>{
+            return (
+                <div  className={count === index ? "show-image" : count - 1 === index ? "from-left" : ""} >
+                    <img 
+                        key={index} src={url} 
+                        alt="Prject show" 
+                    />
+                </div>
+                )
+            })}
+        </div>
+        <div className='imgSlider-btn'>
+            <button onClick={() =>
+                setCount((pre) => {
+                    return pre > 0 ? pre - 1 : pre;
+                })
+            }><AiOutlineArrowLeft/></button>
+            <button onClick={() =>
+                setCount((pre) => {
+                    return pre < imageUrls.length-1 ? pre + 1 : pre;
+                })
+            }><AiOutlineArrowRight /></button>
+        </div>
     </div>
   )
 }

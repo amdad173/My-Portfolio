@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import Layout from '../components/Layout/Layout'
 import {createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'firebase/auth'
 import auth from '../config/firebase'
 import { useAuth } from '../context/AuthContext'
 import { useNavigate } from 'react-router-dom'
+import ProfileLayout from '../components/Layout/ProfileLayout'
 
 
 const Login = () => {
@@ -41,10 +41,10 @@ const Login = () => {
   //if already loged in then no need to login
   useEffect(()=>{
     user && navigate("/admin/profile")
-  },[])
+  },[user, navigate])
   
   return (
-    <Layout>
+    <ProfileLayout>
         <p>{user? user?.email+" "+message : message}</p>
         <form>
           <input 
@@ -62,7 +62,7 @@ const Login = () => {
           <button onClick={register}>sign in</button>
           <button onClick={login}>Login</button>
         </form>
-    </Layout>
+    </ProfileLayout>
   )
 }
 

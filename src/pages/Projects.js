@@ -4,6 +4,8 @@ import {collection, deleteDoc, doc, getDocs} from "firebase/firestore"
 import ProfileLayout from '../components/Layout/ProfileLayout'
 import { useNavigate } from 'react-router-dom'
 import Images from '../components/Images'
+import {BiLinkExternal} from "react-icons/bi"
+import "../styles/projectList.css"
 
 const Projects = () => {
     const navigate = useNavigate()
@@ -41,23 +43,30 @@ const Projects = () => {
 
   return (
     <ProfileLayout>
-        <div className='project_list'>
-            {data.map((project)=>{
-                return (
-                    <div key={project.id}>
-                        <h3>{project.name}</h3>
-                        <a href={project.url}>Link</a>
-                        <p>{project.description}</p>
-                        <Images folder={project?.imageFolder} />
-                        <p>keywords: {project.keywords.map((key, index)=> <span key={index}>{key} </span>)}</p>
-                        <button onClick={()=> navigate(`/admin/update-project/${project.id}`)}>Edit</button>
-                        <button onClick={()=>{delete_project(project.id, project.name)}}>Delete</button>
-                    </div>
-                )
-            })}
+        <div id='projects' className='container'>
+            <h2>Project's</h2>
+            <div className='project-list'>
+                {data.map((project)=>{
+                    return (
+                        <div className='project-container'>
+                            <Images folder={project?.imageFolder} />     
+                            <div className='project-info'>
+                                <div>
+                                <h3>{project?.name}</h3>
+                                <a href={project?.url} target="_blank" rel="noreferrer"><BiLinkExternal /></a>
+                                </div>
+                                <p className='project-description'>{project?.description}</p>
+                                <p className='project-keyword'>{project?.keywords.map((key, index)=> <span key={index}>{key} </span>)}</p>
+                            </div>
+                            <button onClick={()=> navigate(`/admin/update-project/${project.id}`)}>Edit</button>
+                            <button onClick={()=>{delete_project(project.id, project.name)}}>Delete</button>
+                        </div>
+                    )
+                })}
+            </div>
         </div>
     </ProfileLayout>
   )
 }
-
+ 
 export default Projects

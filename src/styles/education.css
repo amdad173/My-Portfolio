@@ -1,0 +1,80 @@
+#education > div{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 30px;
+}
+
+#education > div div{
+    background-color: var(--dark_blue);
+    border-radius: 12px;
+    padding: 15px;
+    border: 2px solid black;
+    box-shadow: 2px 2px 2px var(--light_green);
+}
+
+#education > div div h3, h4, p{
+    padding: 3px 2px;
+}
+
+#education > div div h4{
+    color: var(--ash);
+}
+
+#education > div div p{
+    color:var(--white);
+    font-size: 14px;
+}
+
+/* animation effect for first time */
+.edu-animation{
+    opacity: 0;
+    z-index: -1;
+    transform: translateX(-100%);
+}
+.edu-show1{
+    animation: slideIn 3s ease-in-out forwards;
+}
+.edu-show2{
+    z-index: -2;
+    animation: slideIn 3s ease-in-out forwards;
+    animation-delay: 3s;
+}
+@keyframes slideIn{
+    0%{
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    100%{
+        opacity: 1;
+        transform: translateX(0);
+
+    }
+}
+
+
+
+@media (max-width:768px) {
+    #education > div{
+        grid-template-columns: 1fr;
+    }
+
+    /* animation effect for first time */
+    .edu-animation{
+        opacity: 0;
+        transform: translatey(-100%);
+    }
+    @keyframes slideIn{
+        0%{
+            opacity: 0;
+            transform: translateY(-100%);
+        }
+        100%{
+            opacity: 1;
+            transform: translateY(0);
+
+        }
+    }
+    .edu-show2{
+        animation-delay: 0;
+    }
+}

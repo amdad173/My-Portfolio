@@ -7,10 +7,10 @@ const InputArray = ({ keywordList, value, add, del}) => {
 
   return (
     <div>
-        <h2>
+        <h3>
           {value}
           <button onClick={()=>setEdit(pre => !pre)}><BiSolidEdit /></button>
-        </h2>
+        </h3>
         <p>
           {keywordList.map((word, index)=>{
                 return (

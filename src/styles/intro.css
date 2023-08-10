@@ -1,0 +1,129 @@
+/* ------intro-------- */
+#intro{
+    display: grid;
+    grid-template-columns: 60% 30%;
+    align-items: center;
+    justify-content: space-between;
+    row-gap: 0;
+    height: 90vh;
+  }
+
+  #intro div h1, #intro div h3{
+    margin-bottom: 10px;
+    color: var(--light_green);
+  }
+
+  #intro div:nth-child(1) p{
+    margin: 20px 0;
+    min-height: 80px;
+    text-align: justify;
+  }
+  #intro div button{
+    background-color: inherit;
+    color: var(--light_green);
+    padding: 6px 10px;
+    margin-top: 30px;
+    border-radius: 12px;
+    border: 2px solid;
+    font-size: 16px;
+  }
+  #intro div  a{
+    color: var(--light_green);
+  }
+
+  #intro div button:hover{
+    background-color: black;
+  }
+
+  #intro div:nth-child(2){
+    text-align: center;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+.blob-image{
+    width: 80%;
+    padding-top: 80%;
+    background-size: cover;
+    background-repeat:   no-repeat;
+    background-position: center center;  
+    border-radius: 50%;
+    border: 2px solid  var(--light_green);
+    box-shadow: 0 5px 5px 5px black;
+    animation: animate 5s ease-in-out infinite;
+    transition: all 1s ease-in-out;
+  }
+  
+  @keyframes animate {
+    0%, 100%{
+      border-radius: 50% 40% 60% 60% / 60% 40% 70% 40%;
+    }
+    50%{
+      border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+    }
+  }
+
+  #intro div:nth-child(3) p{
+    margin: 0;
+    padding: 5px;
+    letter-spacing: .2rem;
+    color: var(--light_green);
+  }
+  #intro div:nth-child(3) .line{
+    position: relative;
+    z-index: -1;
+    left: 40px;
+    height: 70px;
+    width: 2px;
+    background-color: var(--light_green);
+  }
+
+  #intro div:nth-child(4){
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 7px;
+    font-size: 30px;
+  }
+
+
+  @media (max-width:768px) {
+    #intro{
+      grid-template-columns: 100%;
+      row-gap: 20px;
+      text-align: center;
+      height: max-content;
+    }
+    #intro div{
+      height: max-content;
+    }
+    #intro div:nth-child(1) p{
+      min-height: 100px;
+    }
+    #intro div:nth-of-type(2){
+      grid-row-start: 1;
+    }
+    #intro div:nth-of-type(4){
+      grid-row-start: 3;
+      flex-direction: row;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px 0;
+    }
+    #intro div img{
+      width: 80%;
+      height: auto;
+      border-radius: 50%;
+      border: 2px solid  var(--light_green);
+      box-shadow: 0 5px 5px 5px black;
+      animation: animate 5s ease-in-out infinite;
+      transition: all 1s ease-in-out;
+    }
+    #intro div:nth-child(3) p{
+      text-align: center;
+    }
+    #intro div:nth-child(3) .line{
+      left: 49%;
+    }
+
+  }
