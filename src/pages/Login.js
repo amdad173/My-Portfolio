@@ -4,13 +4,14 @@ import auth from '../config/firebase'
 import { useAuth } from '../context/AuthContext'
 import { useNavigate } from 'react-router-dom'
 import ProfileLayout from '../components/Layout/ProfileLayout'
+import  "../styles/admin.css"
 
 
 const Login = () => {
   const navigate = useNavigate()
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("please sign in");
+  const [message, setMessage] = useState("");
   const [user] = useAuth()
 
   async function register(e) {
@@ -44,9 +45,11 @@ const Login = () => {
   },[user, navigate])
   
   return (
-    <ProfileLayout>
-        <p>{user? user?.email+" "+message : message}</p>
-        <form>
+    <ProfileLayout>  
+      <div className='login container'>
+        <form >
+          <h2>Login</h2>
+          <p>{message}</p>
           <input 
             type="text" 
             placeholder='User Name'
@@ -62,6 +65,7 @@ const Login = () => {
           <button onClick={register}>sign in</button>
           <button onClick={login}>Login</button>
         </form>
+      </div>
     </ProfileLayout>
   )
 }

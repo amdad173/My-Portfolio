@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom'
 
 const Footer = () => {
   return (
-    <div>
+    <footer>
         <Link to="/login">&copy; Amdadul Haque</Link>
-    </div>
+    </footer>
   )
 }
 

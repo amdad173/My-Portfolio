@@ -34,10 +34,15 @@ const Manu = () => {
           <li className='nav-item'>
               <Link to="/admin/create-project">Create Project</Link>
           </li>
-          <li className='nav-item'>
-              <button onClick={logout}>Logout</button>
-          </li>
+          {user? 
+            <>
+              <li className='nav-item'>
+                <button onClick={logout}>Logout</button>
+              </li>
+            </> : ""
+          }
       </ul>
+      {/* hambargar icon navbar */}
       <div 
          className={click? "hamburger active":"hamburger"}
          onClick={()=> setClick(pre => !pre)}

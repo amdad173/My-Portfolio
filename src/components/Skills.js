@@ -65,7 +65,7 @@ const Skills = () => {
     
 
   return (
-    <div>
+    <div className='intro-skill'>
         <InputArray 
             keywordList={frontend}
             value={"Frontend"}

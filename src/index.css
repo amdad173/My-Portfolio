@@ -64,8 +64,9 @@ button:hover{
 font-family: 'Montserrat', sans-serif;
 font-family: 'Poppins', sans-serif; */
 
+/* conmon style */
 .container{
-  padding: 4% 7%;
+  padding: 5% 7%;
 }
 /*---------navbar------ */
 nav{
@@ -127,7 +128,11 @@ a{
   align-items: center;
 }
 
-
+footer{
+  background-color: var(--dark_blue);
+  padding: 10px;
+  text-align: center;
+}
 
 @media (max-width:768px) {
   h1 {

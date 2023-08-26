@@ -8,6 +8,7 @@ import { collection, doc, getDoc, getDocs } from 'firebase/firestore'
 import { db, storage } from '../config/firebase'
 import { getDownloadURL, ref } from 'firebase/storage'
 import Loading from '../components/Loading'
+import Contact from '../components/profile/Contact'
 
 
 const Home = () => {
@@ -95,6 +96,7 @@ const Home = () => {
       <ProjectList 
         projects={projects}
       />
+      <Contact />
     </Layout>
   )
 }

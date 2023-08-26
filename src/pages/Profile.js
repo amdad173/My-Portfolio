@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import ProfileLayout from '../components/Layout/ProfileLayout'
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { db, storage } from '../config/firebase';
@@ -15,6 +15,7 @@ const Profile = () => {
   const [imageUrl, setImageUrl] = useState("")
   const [imageUpload, setImageUpload] = useState(null)
   const [edit, setEdit] = useState(true)
+  const imageRef = useRef();
 
 
   const getUser = async ()=>{
@@ -52,6 +53,10 @@ const Profile = () => {
     }
   }
 
+  //image input selector using useRef
+  const imageSelect = ()=>{
+    imageRef.current.click()
+  }
   
   // change images
   const updateImage = async ()=>{
@@ -65,7 +70,7 @@ const Profile = () => {
       getDownloadURL(snapshot.ref).then((url)=>{
         setImageUrl(url);
       });
-
+      setImageUpload(null)
       // console.log("image changed successfully")
     }catch(error){
       console.log(error)
@@ -75,30 +80,47 @@ const Profile = () => {
   return (
     <ProfileLayout>
         <div className='container'>
-          <h2>{user?.name}</h2>
-          <div>
+          <div className='admin-intro'>
             <div>
-              <img style={{height:"150px"}} src={imageUrl} alt="My Image" /><br/>
-              <input 
+              {!imageUpload ? 
+                <img  src={imageUrl} alt="Amdad profile" />
+                :
+                <img  src={URL.createObjectURL(imageUpload)} alt="Amdad Profile" />
+              }
+              <input
+                ref={imageRef}
+                style={{display: "none"}} 
                 type="file" 
                 accept='image/png, image/jpeg'
                 required 
                 onChange={(e)=>{setImageUpload(e.target.files[0])}}
                 />
-              <button onClick={()=> updateImage()}>Change Profile Photo</button>
+              {!imageUpload ? 
+                <button onClick={()=> imageSelect()}>Change Photo</button>
+                :
+                <button onClick={()=> updateImage()}>Upload Photo</button>
+              }
             </div>
-            <textarea 
-              type="text" 
-              value={description}
-              placeholder='Intorduce your self'
-              onChange={(e)=>setDescription(e.target.value)}
-              disabled = {edit}
-            /> 
-            <button onClick={update}>
-              <BiSolidEdit />
-            </button>
+            <div>
+              <h3>
+                {user?.name}
+                <button onClick={update}>
+                  <BiSolidEdit />
+                </button>
+              </h3>
+              <textarea 
+                type="text" 
+                value={description}
+                placeholder='Intorduce your self'
+                onChange={(e)=>setDescription(e.target.value)}
+                disabled = {edit}
+              /> 
+              
+            </div>
           </div>
+
           <Skills />
+
         </div>
     </ProfileLayout>
   )

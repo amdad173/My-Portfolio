@@ -1,0 +1,154 @@
+.login{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+    width: 100%;
+}
+
+.login form {
+    max-width: 350px;
+    text-align: center;
+    background-color: var(--dark_blue);
+    padding: 15px;
+    border-radius: 12px;
+}
+.login form input,textarea{
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+/* profile */
+.admin-intro{
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 200px 400px;
+}
+
+.admin-intro div{
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content:stretch;
+    border: 2px solid var(--dark_blue);
+}
+.admin-intro div img{
+    width: 100%;
+    object-fit: contain;
+}
+.admin-intro div button{
+    margin: 0;
+}
+.admin-intro div h3{
+    padding: 2px 5px;
+}
+.admin-intro div h3>button{
+    margin-left: 4px;
+}
+.admin-intro div textarea{
+    padding: 5px;
+    text-align: justify;
+    height: 100%;
+    background-color: var(--light_blue);
+}
+.intro-skill{
+    padding: 10px 0;
+}
+.intro-skill p{
+    color: var(--white);
+}
+
+/* create project */
+.keywords{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 5px;
+    align-items: center;
+}
+.keywords button{
+    margin:0 0 4px;
+}
+.keywords p{
+    margin: 0;
+    padding: 0;
+    text-align: justify ;
+}
+/* pop up image upload*/
+.pop-up{
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px);
+}
+
+.pop-up > div{
+    border: 2px solid var(--light_green);
+    border-radius: 12px;
+    padding: 10px;
+    width: 600px;
+    height: max-content;
+    background-color: black;
+    text-align: center;
+}
+.pop-up div div{
+    width: 100%;
+    height: 0;
+    padding-bottom: 48%;
+    margin-bottom: 10px;
+    position: relative; 
+}
+
+.pop-up div div img{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+/* update project */
+.center-form{
+    margin: 0 auto;
+}
+.update-images{
+    text-align: center;
+}
+.update-images>p{
+    text-align: center;
+}
+.add-images{
+    padding: 10px;
+    width: 60%;
+    background-color: var(--dark_blue);
+    border: 2px solid var(--light_green);
+    border-radius: 12px;
+    margin: 10px auto 10px;
+}
+.add-images > img{
+    width: 100%;
+    object-fit: cover;
+}
+@media (max-width: 678px) {
+    /* profile */
+    .admin-intro{
+        grid-template-columns: 1fr;
+    }
+    .admin-intro div textarea{
+        height: 180px;
+    }
+    /* update project */
+    .add-images{
+        width: 100%;
+    }
+    /* pop up */
+    .pop-up > div{
+        max-width:370px;
+    }
+}

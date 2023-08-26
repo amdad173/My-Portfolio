@@ -10,7 +10,7 @@ const Loading = () => {
       setCount((preValue)=> --preValue)
     }, 1000);
     
-    count===0 && navigate("/")
+    count===0 && navigate("/login")
 
     return () => {
       clearInterval(interval)
@@ -19,7 +19,7 @@ const Loading = () => {
   
   return (
     <div className='loading'>
-      <h1>loding.....</h1>
+      <h1>loading.....</h1>
     </div>
   )
 }

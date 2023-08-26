@@ -36,8 +36,8 @@ const SkillsList = ({frontend, backend, tools, learning}) => {
           <div className='skill-card left-animation'>
             <h3>FRONTEND DEVELOBMENT</h3>
             <p>
-              {frontend.map((item)=>{
-                return <span>{item}</span>
+              {frontend.map((item, index)=>{
+                return <span key={index}>{item}</span>
               })}
             </p>
           </div>
@@ -45,8 +45,8 @@ const SkillsList = ({frontend, backend, tools, learning}) => {
           <div className='skill-card right-animation'>
             <h3>BACKEND DEVELOBMENT</h3>
             <p>
-              {backend.map((item)=>{
-                return <span>{item}</span>
+              {backend.map((item, index)=>{
+                return <span key={index}>{item}</span>
               })}
             </p>
           </div>
@@ -54,8 +54,8 @@ const SkillsList = ({frontend, backend, tools, learning}) => {
           <div className='skill-card left-animation'>
             <h3>TOOLS</h3>
             <p>
-              {tools.map((item)=>{
-                return <span>{item}</span>
+              {tools.map((item, index)=>{
+                return <span key={index}>{item}</span>
               })}
             </p>
           </div>
@@ -63,8 +63,8 @@ const SkillsList = ({frontend, backend, tools, learning}) => {
           <div className='skill-card right-animation'>
             <h3>LEARNING LIST</h3>
             <p>
-              {learning.map((item)=>{
-                return <span>{item}</span>
+              {learning.map((item, index)=>{
+                return <span key={index}>{item}</span>
               })}
             </p>
           </div>

@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import { db } from '../config/firebase'
+import { db, storage } from '../config/firebase'
 import {collection, deleteDoc, doc, getDocs} from "firebase/firestore"
 import ProfileLayout from '../components/Layout/ProfileLayout'
 import { useNavigate } from 'react-router-dom'
 import Images from '../components/Images'
 import {BiLinkExternal} from "react-icons/bi"
 import "../styles/projectList.css"
+import { deleteObject, listAll, ref } from 'firebase/storage'
 
 const Projects = () => {
     const navigate = useNavigate()
     const [data, setData] = useState([])
+    const [message, setMessage] = useState("")
 
     useEffect(()=>{
        const getData = async ()=>{
@@ -26,16 +28,29 @@ const Projects = () => {
         getData()
     },[])
 
-    const delete_project = async (id, name)=>{
+    const delete_project = async (id, name, folder)=>{
         let isExecuted = window.confirm(`Do you want to delete ${name} project?`);
         if(!isExecuted) return;
         try{
+            //delete document in firebase database
             await deleteDoc(doc(db, "projects", id));
-            console.log(`${id} deleted successfully`)
 
+            // Delete all images in the folder
+            const folderRef = ref(storage, folder);
+            const items = await listAll(folderRef);
+
+            // Delete each file
+            const deleteItemPromises = items.items.map(async (item) => {
+                await deleteObject(item);
+            });
+
+            // Wait for all file deletions to complete
+            await Promise.all(deleteItemPromises);
+                    
             setData(data.filter((project)=>{
                 return project.id!==id;
             }))
+            alert(`${name} deleted successfully`)
         } catch(error){
             console.log(error)
         }
@@ -46,9 +61,9 @@ const Projects = () => {
         <div id='projects' className='container'>
             <h2>Project's</h2>
             <div className='project-list'>
-                {data.map((project)=>{
+                {data.map((project, index)=>{
                     return (
-                        <div className='project-container'>
+                        <div className='project-container' key={index}>
                             <Images folder={project?.imageFolder} />     
                             <div className='project-info'>
                                 <div>
@@ -59,7 +74,7 @@ const Projects = () => {
                                 <p className='project-keyword'>{project?.keywords.map((key, index)=> <span key={index}>{key} </span>)}</p>
                             </div>
                             <button onClick={()=> navigate(`/admin/update-project/${project.id}`)}>Edit</button>
-                            <button onClick={()=>{delete_project(project.id, project.name)}}>Delete</button>
+                            <button onClick={()=>{delete_project(project?.id, project?.name, project?.imageFolder)}}>Delete</button>
                         </div>
                     )
                 })}

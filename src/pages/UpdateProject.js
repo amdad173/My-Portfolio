@@ -5,6 +5,7 @@ import {getDownloadURL, ref, uploadBytes, listAll, deleteObject} from 'firebase/
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import {v4} from 'uuid'
 import { useParams } from 'react-router-dom'
+import InputImage from '../components/form/InputImage';
 
 const UpdateProject = () => {
   const {id} = useParams();
@@ -15,7 +16,10 @@ const UpdateProject = () => {
   const [keywordList, setKeywordList] = useState([])
   const [folderRef, setFolderRef] = useState("")
   const [imageUpload, setImageUpload] = useState(null)
+  const [imageUpdate, setImageUpdate] = useState(null)
   const [imageUrls, setImageUrls] = useState([])
+  const [message, setMessage] = useState("");
+  const [count, setCount] = useState(0);
 
   const getData = async ()=>{
     try{
@@ -26,15 +30,17 @@ const UpdateProject = () => {
         setDescription(project.description)
         setKeywordList([...project.keywords])
         setFolderRef(project.imageFolder)
-        console.log(response.data())
+        // console.log(response.data())
 
         const all_images = await listAll(ref(storage, `${project?.imageFolder}/`))
-        console.log(all_images)
+        // console.log(all_images)
         all_images.items.forEach((item) => {
           getDownloadURL(item).then((url) => {
             setImageUrls((prev) => [...prev, url]);
+            setCount(pre=> pre+1)
           });
         });
+        
     }catch(error){
         console.log(error)
     }
@@ -43,6 +49,7 @@ const UpdateProject = () => {
     getData()
   },[])
 
+  
   const update = async (e)=>{
     e.preventDefault()
 
@@ -53,28 +60,33 @@ const UpdateProject = () => {
         description: description,
         keywords: keywordList,
       })
-      alert("Updated successfully")
+      setMessage("Updated Successfully")
+      // alert("Updated successfully")
     }catch(error){
-      console.log(error)
+      // console.log(error)
+      setMessage(error.message)
     }
   }
 
   ////////////// image crud ////////////
-  const uploadImage = async (e)=>{
-    e.preventDefault();
+  const uploadImage = async ()=>{
     if (imageUpload == null) return;
 
-    const imageRef = ref(storage, `${folderRef}/${v4()+imageUpload.name}`)
+    const imageRef = ref(storage, `${folderRef}/${v4()}`)
     try{
       const snapshot = await uploadBytes(imageRef, imageUpload)
       getDownloadURL(snapshot.ref).then((url)=>{
         setImageUrls(pre => [...pre, url]);
+        setCount(pre=> pre+1)
       });
-      console.log("image", imageUrls)
-      alert("image uploaded success fully")
+      // console.log("image", imageUrls)
+      setMessage("Image Added successfully")
+      setImageUpload(null)
+      // alert("image uploaded success fully")
       
     } catch(error){
-      console.log(error)
+      setMessage(error.message)
+      // console.log(error)
     }
   }
 
@@ -82,14 +94,19 @@ const UpdateProject = () => {
     try{
       await deleteObject(ref(storage, url))
       setImageUrls((pre)=> pre.filter((x)=> x!==url))
+      setCount((pre)=> { 
+        return (pre > 0)? pre-1: pre;
+      })
+      setMessage("Image deleted successfully")
     }catch(error){
-      console.log(error)
+      setMessage(error.message)
+      // console.log(error)
     }
   }
   // for separate image name and folder name
   const getImageInfoFromUrl = (url) => {
     const parts = url.split('/'); // Split the URL by '/'
-
+    console.log(url)
     const info = parts[parts.length - 1].split("%2F");
     const folderName = info[0]
     const imageName = info[1].split('?')[0]
@@ -99,20 +116,22 @@ const UpdateProject = () => {
 
   const updateImage = async (url)=>{
     try{
-      if (imageUpload == null) return;
+      if (imageUpdate == null) return;
       // firebase dont provide an update method so delete and upload new image as same name
       await deleteObject(ref(storage, url))
       setImageUrls((pre)=> pre.filter((x)=> x!==url))
       
       const imageRef = ref(storage, getImageInfoFromUrl(url));
-      const snapshot = await uploadBytes(imageRef, imageUpload)
+      const snapshot = await uploadBytes(imageRef, imageUpdate)
       getDownloadURL(snapshot.ref).then((url)=>{
         setImageUrls(pre => [...pre, url]);
       });
-
-      console.log("updated successfully")
+      setMessage("Image updated successfully")
+      setImageUpdate(null)
+      // console.log("updated successfully")
     }catch(error){
-      console.log(error)
+      setMessage(error.message)
+      // console.log(error)
     }
   }
 
@@ -120,39 +139,38 @@ const UpdateProject = () => {
 
   return (
     <ProfileLayout>
-      <div className='update_project'>
-        <h1>Update Project</h1>
-        <form>
+      <div className='login container '>
+        <form className='center-form'>
+          <h2>Update Project</h2>
           <input type="text"
             placeholder='Project Name'
             value={projectName}
             onChange={(e)=> setProjectName(e.target.value)}
             required
-          /><br/>
+          />
           <input type="text"
             placeholder='Project Link'
             value={projectUrl}
             onChange={(e)=> setProjectUrl(e.target.value)}
             required
-          /><br/>
+          />
           <textarea type="text"
             placeholder='Descriptoin'
             value={description}
             onChange={(e)=> setDescription(e.target.value)}
             required
-          /><br/>
+          />
           {/* keyword and keyword list section */}
-          <div>
+          <div className='keywords'>
             <input type="text"
-              placeholder='Keywords'
+              placeholder='Add Keyword to list'
               value={keyword}
               onChange={(e)=> setKeyword(e.target.value)}
             />
-
-            <button 
+            <button
               onClick={(e)=>{
                 e.preventDefault()
-                setKeywordList((pre)=> [...pre, keyword]);
+                if(keyword) setKeywordList((pre)=> [...pre, keyword]);
                 setKeyword("")
               }}
             >Add</button>
@@ -161,48 +179,52 @@ const UpdateProject = () => {
                 e.preventDefault()
                 setKeywordList(keywordList.slice(0, keywordList.length - 1))
               }}
-            >Delete</button><br/>
-
-            {keywordList.map((word, index)=>{
-              return (
-                <span>
-                  {`${index === 0? " "+word : ", "+word}`}
-                </span>)
-              })}          
+            >Delete</button>
+            <p>List: 
+              {keywordList.map((word, index)=>{
+                return (
+                  <span key={index}>
+                    {`${index===0? " "+word : ", "+word}`}
+                  </span>)
+                })}
+            </p>
           </div>
 
           <button onClick={update}>Update</button>
-        </form><br/>
+        </form>
 
-        {/* image upload */}
-        <div>
-          <input 
-            type="file" 
-            accept='image/png, image/jpeg'
-            required 
-            onChange={(e)=>{setImageUpload(e.target.files[0])}}
+        <div className='update-images'> 
+        <p>{message}</p>
+        <h4>Total Images: {count}</h4>
+
+          {/* image upload */}
+          <InputImage
+            addImage={"Add ScreenShoots of the Project"}
+            saveImage={"Save Image"} 
+            handleSave={uploadImage}
+            imageUpload={imageUpload}
+            setImageUpload={setImageUpload}
           />
-          <button onClick={uploadImage}>Upload</button>
-        </div>
 
-        {/* image show case  */}
-        {imageUrls.map((url)=>{
-          return (
-            <div>
-              <img src={url} alt={projectName+"app image"}/><br/>
-              <button onClick={()=> deleteImage(url)}>Delete</button>
-              
-              <input 
-              type="file" 
-              accept='image/png, image/jpeg'
-              required 
-              onChange={(e)=>{setImageUpload(e.target.files[0])}}
-              />
-              <button onClick={()=> updateImage(url)}>Update</button>
-              <br/><br/>
-            </div>
-          )
-        })}
+          {/* image show case  */}
+          {imageUrls.map((url, index)=>{
+            return (
+              <div className='add-images' key={index}>
+                <img src={url} alt={projectName+"app image"}/><br/>
+                
+                <InputImage
+                  addImage={"Change Image"}
+                  saveImage={"Save Changes"} 
+                  handleSave={()=>updateImage(url)}
+                  handleDelete={()=> deleteImage(url)}
+                  imageUpload={imageUpdate}
+                  setImageUpload={setImageUpdate}
+                />
+                {/* <button onClick={()=> deleteImage(url)}>Delete</button> */}
+              </div>
+            )
+          })}
+        </div>
       </div>
     </ProfileLayout>
   )

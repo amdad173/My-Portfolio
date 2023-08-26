@@ -28,7 +28,7 @@ const Images = ({folder}) => {
         <div className='image-slider'>
             {imageUrls.map((url, index)=>{
             return (
-                <div  className={count === index ? "show-image" : count - 1 === index ? "from-left" : ""} >
+                <div  className={count === index ? "show-image" : count - 1 === index ? "from-left" : ""} key={index}>
                     <img 
                         key={index} src={url} 
                         alt="Prject show" 

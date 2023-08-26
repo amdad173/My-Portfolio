@@ -38,49 +38,56 @@ const CreateProject = () => {
 
   return (
     <ProfileLayout>
-     <div>
-        <h1>Create Project</h1>
-        {message}
+     <div className='login container'>
         <form>
+          <h2>Create Project</h2>
+          <p>{message}</p>
           <input type="text"
             placeholder='Project Name'
             value={projectName}
             onChange={(e)=> setProjectName(e.target.value)}
             required
-          /><br/>
+          />
           <input type="text"
             placeholder='Project Link'
             value={projectUrl}
             onChange={(e)=> setProjectUrl(e.target.value)}
             required
-          /><br/>
+          />
           <textarea type="text"
             placeholder='Descriptoin'
             value={description}
             onChange={(e)=> setDescription(e.target.value)}
             required
-          /><br/>
+          />
           {/* keyword and keyword list section */}
-          <div>
+          <div className='keywords'>
             <input type="text"
-              placeholder='Keywords'
+              placeholder='Add Keyword to list'
               value={keyword}
               onChange={(e)=> setKeyword(e.target.value)}
             />
             <button
               onClick={(e)=>{
                 e.preventDefault()
-                setKeywordList((pre)=> [...pre, keyword]);
+                if(keyword) setKeywordList((pre)=> [...pre, keyword]);
                 setKeyword("")
               }}
-            >Add</button><br/>
-
-            {keywordList.map((word, index)=>{
-              return (
-                <span key={index}>
-                  {`${index===0? " "+word : ", "+word}`}
-                </span>)
-              })}
+            >Add</button>
+            <button 
+              onClick={(e)=>{
+                e.preventDefault()
+                setKeywordList(keywordList.slice(0, keywordList.length - 1))
+              }}
+            >Delete</button>
+            <p>List: 
+              {keywordList.map((word, index)=>{
+                return (
+                  <span key={index}>
+                    {`${index===0? " "+word : ", "+word}`}
+                  </span>)
+                })}
+            </p>
           </div>
           <button onClick={handleSubmit}>Submit</button>
         </form>

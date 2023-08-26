@@ -8,9 +8,9 @@ const ProjectList = ({projects}) => {
     <div id='projects' className='container'>
       <h2>Project's</h2>
       <div className='project-list'>
-        {projects.map((project)=>{
+        {projects.map((project, index)=>{
                   return (
-                    <div className='project-container'>
+                    <div className='project-container' key={index}>
                       <Images folder={project?.imageFolder} />     
                       <div className='project-info'>
                         <div>
