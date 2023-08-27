@@ -15,8 +15,8 @@ const SkillsList = ({frontend, backend, tools, learning}) => {
           }
         })
       }, {
-        threshold: 0,
-        rootMargin: "-50px"
+        threshold: .5,
+        rootMargin: "-100px"
       })
 
       cards.forEach(card => {

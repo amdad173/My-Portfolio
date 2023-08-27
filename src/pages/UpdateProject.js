@@ -3,7 +3,7 @@ import ProfileLayout from '../components/Layout/ProfileLayout'
 import {db, storage} from "../config/firebase"
 import {getDownloadURL, ref, uploadBytes, listAll, deleteObject} from 'firebase/storage'
 import { doc, getDoc, updateDoc } from "firebase/firestore";
-import {v4} from 'uuid'
+// import {v4} from 'uuid'
 import { useParams } from 'react-router-dom'
 import InputImage from '../components/form/InputImage';
 
@@ -32,16 +32,27 @@ const UpdateProject = () => {
         setFolderRef(project.imageFolder)
         // console.log(response.data())
 
-        const all_images = await listAll(ref(storage, `${project?.imageFolder}/`))
-        // console.log(all_images)
-        all_images.items.forEach((item) => {
-          getDownloadURL(item).then((url) => {
-            setImageUrls((prev) => [...prev, url]);
-            setCount(pre=> pre+1)
-          });
+        //return image info as object array
+        const allImgObj = await listAll(ref(storage, `${project?.imageFolder}/`))
+
+        const sortedImgObj = allImgObj.items.sort((a, b) => {
+          // Extract the number from the file names
+          const numA = Number(a.name);
+          const numB = Number(b.name);
+          
+          // Compare the numbers
+          return numA - numB;
         });
         
-    }catch(error){
+        // Create an array of image download URLs
+        const imageLinks = await Promise.all(sortedImgObj.map(async (file) => {
+          const imageUrl = await getDownloadURL(file);
+          setCount(pre=> pre+1)
+          return imageUrl;
+        }));
+
+        setImageUrls(imageLinks)
+    } catch(error){
         console.log(error)
     }
   }
@@ -69,10 +80,17 @@ const UpdateProject = () => {
   }
 
   ////////////// image crud ////////////
-  const uploadImage = async ()=>{
-    if (imageUpload == null) return;
+  const imageNumber = ()=>{
+    const number = getNameFromUrl(imageUrls[imageUrls.length-1])
+    return number+1;
+  }
 
-    const imageRef = ref(storage, `${folderRef}/${v4()}`)
+  const uploadImage = async ()=>{
+    if (imageUpload == null && projectName) return;
+
+    //make name of image number(to sort when get)
+    const number = imageUrls.length>0 ? imageNumber() : 0
+    const imageRef = ref(storage, `${folderRef}/${number}`)
     try{
       const snapshot = await uploadBytes(imageRef, imageUpload)
       getDownloadURL(snapshot.ref).then((url)=>{
@@ -103,15 +121,17 @@ const UpdateProject = () => {
       // console.log(error)
     }
   }
-  // for separate image name and folder name
-  const getImageInfoFromUrl = (url) => {
-    const parts = url.split('/'); // Split the URL by '/'
-    console.log(url)
-    const info = parts[parts.length - 1].split("%2F");
-    const folderName = info[0]
-    const imageName = info[1].split('?')[0]
 
-  return `${folderName}/${imageName}`;
+  // for separate image name and folder name
+  const getNameFromUrl = (url) => {
+    const parts = url.split('/'); // Split the URL by '/'
+    // console.log("URL: ",url)
+    const info = parts[parts.length - 1].split("%2F");
+    const fullName = info[1].split('?')[0]
+    const imageName = fullName.split(".")[0]
+    // console.log("ImageNumber: ", imageName)
+
+    return Number(imageName);
   };
 
   const updateImage = async (url)=>{
@@ -121,7 +141,7 @@ const UpdateProject = () => {
       await deleteObject(ref(storage, url))
       setImageUrls((pre)=> pre.filter((x)=> x!==url))
       
-      const imageRef = ref(storage, getImageInfoFromUrl(url));
+      const imageRef = ref(storage, `${folderRef}/${getNameFromUrl(url)}`);
       const snapshot = await uploadBytes(imageRef, imageUpdate)
       getDownloadURL(snapshot.ref).then((url)=>{
         setImageUrls(pre => [...pre, url]);
@@ -134,8 +154,6 @@ const UpdateProject = () => {
       // console.log(error)
     }
   }
-
-
 
   return (
     <ProfileLayout>

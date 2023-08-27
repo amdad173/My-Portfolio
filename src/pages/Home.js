@@ -7,7 +7,7 @@ import ProjectList from '../components/profile/ProjectList'
 import { collection, doc, getDoc, getDocs } from 'firebase/firestore'
 import { db, storage } from '../config/firebase'
 import { getDownloadURL, ref } from 'firebase/storage'
-import Loading from '../components/Loading'
+import Waiting from '../components/load/Waiting'
 import Contact from '../components/profile/Contact'
 
 
@@ -36,11 +36,9 @@ const Home = () => {
       await getSkills(); 
       //given bellow 
       await getProjects();
-
-      setInterval(() => {
+      setTimeout(()=>{
         setLoading(false)
-      }, 1000);
-      
+      }, 3000)
     }catch(error){
       console.log(error)
     }
@@ -81,24 +79,31 @@ const Home = () => {
 
 
   return (
-    <Layout>
-      <Intro 
-        user={user}
-        imageUrl={imageUrl}
-      />
-      <Education />
-      <SkillsList 
-        frontend={frontend}
-        backend={backend}
-        tools={tools}
-        learning={learning}
-      />
-      <ProjectList 
-        projects={projects}
-      />
-      <Contact />
-    </Layout>
-  )
+    <>
+      {
+        loading? 
+        <Waiting />
+        :
+        <Layout>
+          <Intro 
+            user={user}
+            imageUrl={imageUrl}
+          />
+          <Education />
+          <SkillsList 
+            frontend={frontend}
+            backend={backend}
+            tools={tools}
+            learning={learning}
+          />
+          <ProjectList 
+            projects={projects}
+          />
+          <Contact />
+        </Layout>
+      }
+    </>
+  );
 }
 
 export default Home

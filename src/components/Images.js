@@ -8,12 +8,23 @@ const Images = ({folder}) => {
 
     const get_images = async ()=>{
         try{
-            const all_images = await listAll(ref(storage, `${folder}/`))
-            all_images.items.forEach((item) => {
-            getDownloadURL(item).then((url) => {
-                setImageUrls((prev) => [...prev, url]);
-                });
-            });
+            const allImgObj = await listAll(ref(storage, `${folder}/`))
+            const sortedImgObj = allImgObj.items.sort((a, b) => {
+                // Extract the number from the file names
+                const numA = Number(a.name);
+                const numB = Number(b.name);
+                
+                // Compare the numbers
+                return numA - numB;
+              });
+              
+              // Create an array of image download URLs
+              const imageLinks = await Promise.all(sortedImgObj.map(async (file) => {
+                const imageUrl = await getDownloadURL(file);
+                return imageUrl;
+              }));
+      
+              setImageUrls(imageLinks)
         } catch(error){
             console.log(error)
         }
