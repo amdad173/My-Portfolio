@@ -36,7 +36,7 @@ h2 {
   color: var(--white);
   font-size: 30px; /* Default font size for h2 */
   padding-bottom: 4px;
-  margin: 0 auto 6%;
+  margin: 0 auto 4%;
   width: max-content;
   border-bottom: 2px solid var(--light_green);
 }
@@ -66,7 +66,7 @@ font-family: 'Poppins', sans-serif; */
 
 /* conmon style */
 .container{
-  padding: 5% 7%;
+  padding: 4% 7%;
 }
 /*---------navbar------ */
 nav{

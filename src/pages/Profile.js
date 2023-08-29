@@ -35,6 +35,7 @@ const Profile = () => {
   }
   useEffect(()=>{
     getUser()
+    // eslint-disable-next-line
   },[])
 
   const update = async ()=>{

@@ -13,13 +13,8 @@ const Waiting = () => {
       if (count === 2)  setMessage("I am Amdad")
       if (count === 3)  setMessage("Welcome to My Portfolio")
 
-      if(count === 10) {
-        setMessage("I Think You Have a Internet Problem")
-        clearInterval(interval)
-      }
-
-
-
+      if(count === 10) setMessage("I Think You Have a Internet Problem")
+      
       return () => {
         clearInterval(interval)
       }

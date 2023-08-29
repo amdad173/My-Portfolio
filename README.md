@@ -1,22 +1,37 @@
 # My Portfolio
-This project is created using react (create-react-app). Firebase is used for the backend. Firebase Authentication, database, and storage are used in this project. 
+
+This project is created using react (create-react-app). Firebase is used for the backend. Firebase Authentication, database, and storage are used in this project.
+
 # Firebase account
+
 - create an account
 - create project
 - select web and get the code from there to connect to Firebase
 - save that code to config/firebase.js
 - always keep the key in the dot env file
+
 # ENV variable ( Firebase )
-- REACT_APP_FIREBASE_API_KEY 
-- REACT_APP_FIREBASE_AUTH_DOMAIN 
-- REACT_APP_FIREBASE_PROJECT_ID 
-- REACT_APP_FIREBASE_STORAGE_BUCKET 
+
+- REACT_APP_FIREBASE_API_KEY
+- REACT_APP_FIREBASE_AUTH_DOMAIN
+- REACT_APP_FIREBASE_PROJECT_ID
+- REACT_APP_FIREBASE_STORAGE_BUCKET
 - REACT_APP_FIREBASE_MESSAGING_SENDER_ID
 - REACT_APP_FIREBASE_APP_ID
 - REACT_APP_FIREBASE_MEASUREMENT_ID
 - document id of projects and skills collection
-    - REACT_APP_FIREBASE_PROFILE_ID
-    - REACT_APP_FIREBASE_SKILLS_ID
+  - REACT_APP_FIREBASE_PROFILE_ID
+  - REACT_APP_FIREBASE_SKILLS_ID
+
+# ENV variable (Email JS)
+
+- REACT_APP_YOUR_SERVICE_ID
+- REACT_APP_YOUR_PUBLIC_KEY
+- REACT_APP_YOUR_TEMPLATE_ID
+
+# ENV variable (Disable React DevTool)
+
+- REACT_APP_DEVTOOL
 
 ### `npm start`
 

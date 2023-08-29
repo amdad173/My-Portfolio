@@ -46,6 +46,7 @@ const Home = () => {
 
   useEffect(()=>{
     getData()
+    // eslint-disable-next-line
   },[])
 
   const getSkills = async ()=>{

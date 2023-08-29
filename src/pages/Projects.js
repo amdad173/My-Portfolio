@@ -11,7 +11,6 @@ import { deleteObject, listAll, ref } from 'firebase/storage'
 const Projects = () => {
     const navigate = useNavigate()
     const [data, setData] = useState([])
-    const [message, setMessage] = useState("")
 
     useEffect(()=>{
        const getData = async ()=>{
@@ -32,21 +31,22 @@ const Projects = () => {
         let isExecuted = window.confirm(`Do you want to delete ${name} project?`);
         if(!isExecuted) return;
         try{
-            //delete document in firebase database
-            await deleteDoc(doc(db, "projects", id));
-
-            // Delete all images in the folder
+           
+            // first Delete all images in the folder which delete the folder
             const folderRef = ref(storage, folder);
             const items = await listAll(folderRef);
 
-            // Delete each file
+            // Delete each images
             const deleteItemPromises = items.items.map(async (item) => {
                 await deleteObject(item);
             });
 
-            // Wait for all file deletions to complete
+            // Wait for all image deletions to complete
             await Promise.all(deleteItemPromises);
-                    
+            
+            //finally delete document in firebase database
+            await deleteDoc(doc(db, "projects", id));
+
             setData(data.filter((project)=>{
                 return project.id!==id;
             }))

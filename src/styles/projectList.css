@@ -43,6 +43,11 @@
     justify-content: flex-end;
     gap: 8px;
 }
+.imgSlider-btn p{
+    color: var(--white);
+    padding: 2px 15px;
+    margin: 2px;
+}
 .imgSlider-btn button{
     display: flex;
     background-color: var(--dark_blue);

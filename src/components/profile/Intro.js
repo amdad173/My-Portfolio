@@ -8,7 +8,7 @@ const Intro = ({user, imageUrl}) => {
           <h1>Amdadul Haque</h1>
           <h3>Software Engineere & Mern Stack developer</h3>
           <p>{user.intro}</p>
-          <button><a href="#contect">Contect me</a></button>
+          <button><a href="#contect">Contact me</a></button>
         </div>
         <div >
           <div style={{backgroundImage: `url(${imageUrl})`}} className="blob-image"></div>

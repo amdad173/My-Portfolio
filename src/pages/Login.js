@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import {createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'firebase/auth'
+import {signInWithEmailAndPassword} from 'firebase/auth'
 import auth from '../config/firebase'
 import { useAuth } from '../context/AuthContext'
 import { useNavigate } from 'react-router-dom'
@@ -14,17 +14,17 @@ const Login = () => {
   const [message, setMessage] = useState("");
   const [user] = useAuth()
 
-  async function register(e) {
-    e.preventDefault();
+  // async function register(e) {
+  //   e.preventDefault();
 
-    try{
-      await createUserWithEmailAndPassword(auth, name, password);
-      setMessage("signup successfully")
-    }catch(error){
-      console.log(error)
-      setMessage("Something went wrong")  //error obeject has name and message property
-    }
-  }
+  //   try{
+  //     await createUserWithEmailAndPassword(auth, name, password);
+  //     setMessage("signup successfully")
+  //   }catch(error){
+  //     console.log(error)
+  //     setMessage("Something went wrong")  //error obeject has name and message property
+  //   }
+  // }
 
   async function login(e) {
     e.preventDefault();
@@ -62,7 +62,7 @@ const Login = () => {
             value={password}
             onChange={(e)=> setPassword(e.target.value)}
             />
-          <button onClick={register}>sign in</button>
+          {/* <button onClick={register}>sign in</button> */}
           <button onClick={login}>Login</button>
         </form>
       </div>

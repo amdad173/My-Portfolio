@@ -20,7 +20,7 @@ const CreateProject = () => {
         url: projectUrl,
         description: description,
         keywords: keywordList,
-        imageFolder: v4()
+        imageFolder: `${projectName}_${v4()}`
       })
 
       const name = projectName
@@ -41,7 +41,6 @@ const CreateProject = () => {
      <div className='login container'>
         <form>
           <h2>Create Project</h2>
-          <p>{message}</p>
           <input type="text"
             placeholder='Project Name'
             value={projectName}
@@ -80,16 +79,17 @@ const CreateProject = () => {
                 setKeywordList(keywordList.slice(0, keywordList.length - 1))
               }}
             >Delete</button>
-            <p>List: 
-              {keywordList.map((word, index)=>{
-                return (
-                  <span key={index}>
-                    {`${index===0? " "+word : ", "+word}`}
-                  </span>)
-                })}
-            </p>
           </div>
+          <p>List: 
+            {keywordList.map((word, index)=>{
+              return (
+                <span key={index}>
+                  {`${index===0? " "+word : ", "+word}`}
+                </span>)
+              })}
+          </p>
           <button onClick={handleSubmit}>Submit</button>
+          <p>{message}</p>
         </form>
       </div>
     </ProfileLayout>

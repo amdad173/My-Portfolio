@@ -58,6 +58,7 @@ const UpdateProject = () => {
   }
   useEffect(()=>{
     getData()
+    // eslint-disable-next-line
   },[])
 
   
@@ -198,16 +199,15 @@ const UpdateProject = () => {
                 setKeywordList(keywordList.slice(0, keywordList.length - 1))
               }}
             >Delete</button>
-            <p>List: 
+          </div>
+          <p>List: 
               {keywordList.map((word, index)=>{
                 return (
                   <span key={index}>
                     {`${index===0? " "+word : ", "+word}`}
                   </span>)
                 })}
-            </p>
-          </div>
-
+          </p>
           <button onClick={update}>Update</button>
         </form>
 

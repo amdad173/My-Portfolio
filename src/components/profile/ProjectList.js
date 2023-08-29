@@ -1,4 +1,3 @@
-import React, { useState } from 'react'
 import Images from '../Images'
 import {BiLinkExternal} from "react-icons/bi"
 import "../../styles/projectList.css"
@@ -6,7 +5,7 @@ import "../../styles/projectList.css"
 const ProjectList = ({projects}) => {
   return (
     <div id='projects' className='container'>
-      <h2>Project's</h2>
+      <h2>MY PROJECT'S</h2>
       <div className='project-list'>
         {projects.map((project, index)=>{
                   return (

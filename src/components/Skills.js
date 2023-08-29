@@ -26,6 +26,7 @@ const Skills = () => {
       }
       useEffect(()=>{
         getSkills()
+        // eslint-disable-next-line
       },[])
 
       const update = async (e)=>{

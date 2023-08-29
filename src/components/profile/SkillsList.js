@@ -1,38 +1,42 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import "../../styles/skills.css"
 
 const SkillsList = ({frontend, backend, tools, learning}) => {
-  
-    // card sliding animation using css and intersection observer
-    useEffect(()=>{
-      const cards = document.querySelectorAll(".skill-card")
+  const skillSliderRef = useRef(null);
 
-      const observer = new IntersectionObserver(entries=> {
-        entries.forEach(entry => {
-          entry.target.classList.toggle("show", entry.isIntersecting)
-          if (entry.isIntersecting) {
-            observer.unobserve(entry.target)
-          }
-        })
-      }, {
-        threshold: .5,
-        rootMargin: "-100px"
-      })
+  useEffect(() => {
+    const skillSlider = skillSliderRef.current;
 
-      cards.forEach(card => {
-        observer.observe(card)
-      })
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const children = entry.target.querySelectorAll('.skill-card');
+          children.forEach((child) => {
+            child.classList.add('show');
+          });
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.5, // Adjust this threshold as needed
+    });
 
-      return () => {
-        observer.disconnect();
-      };
-    },[])
+    if (skillSlider) {
+      observer.observe(skillSlider);
+    }
+
+    return () => {
+      if (skillSlider) {
+        observer.unobserve(skillSlider);
+      }
+    };
+  }, []);
 
 
   return (
     <div id='skills' className='container'>
         <h2>MY SKILL'S</h2>
-        <div>
+        <div className='skill-slider' ref={skillSliderRef}>
           <div className='skill-card left-animation'>
             <h3>FRONTEND DEVELOBMENT</h3>
             <p>

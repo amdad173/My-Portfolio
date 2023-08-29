@@ -10,7 +10,7 @@
     border-left: 2px solid var(--light_green);
     padding: 10px 10px 20px;
     opacity: 0;
-    transition: 2s;
+    transition: 3s;
     z-index: -1;
 }
 
