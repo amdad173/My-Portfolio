@@ -6,7 +6,7 @@ const Intro = ({user, imageUrl}) => {
     <div id='intro' className='container'>
         <div>
           <h1>Amdadul Haque</h1>
-          <h3>Software Engineere & Mern Stack developer</h3>
+          <h3>Software Engineer & MERN Stack Developer</h3>
           <p>{user.intro}</p>
           <button><a href="#contect">Contact me</a></button>
         </div>

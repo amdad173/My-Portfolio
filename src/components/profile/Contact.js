@@ -17,7 +17,7 @@ const Contact = () => {
         e.preventDefault();
         if(!name || !email || !message) return;
 
-        setVerify("Sending Email")
+        setVerify("Sending...")
         emailjs.sendForm(process.env.REACT_APP_YOUR_SERVICE_ID, process.env.REACT_APP_YOUR_TEMPLATE_ID, formRef.current, process.env.REACT_APP_YOUR_PUBLIC_KEY)
           .then((result) => {
             //   console.log(result.text);

@@ -50,7 +50,7 @@ const Images = ({folder}) => {
             })}
         </div>
         <div className='imgSlider-btn'>
-            <p>{count+1} / {imageUrls.length}</p>
+            <p>{imageUrls.length>0? count+1: 0} / {imageUrls.length}</p>
             <button onClick={() =>
                 setCount((pre) => {
                     return pre > 0 ? pre - 1 : pre;
