@@ -35,7 +35,7 @@ const SkillsList = ({frontend, backend, tools, learning}) => {
 
   return (
     <div id='skills' className='container'>
-        <h2>MY SKILL'S</h2>
+        <h2>MY SKILLS</h2>
         <div className='skill-slider' ref={skillSliderRef}>
           <div className='skill-card left-animation'>
             <h3>FRONTEND DEVELOBMENT</h3>

@@ -8,16 +8,16 @@ const Header = () => {
         <Link className='logo' to="/">AH</Link>
         <ul className={click? "nav-manu active":"nav-manu"}>
             <li className='nav-item'>
-                <a href="#intro" onClick={()=> setClick(pre => !pre)}>Home</a>
+                <a href="#intro" onClick={()=> setClick(pre => !pre)}>Intro</a>
             </li>
             <li className='nav-item' >
                 <a href="#education" onClick={()=> setClick(pre => !pre)}>Education</a>
             </li>
             <li className='nav-item'>
-                <a href="#skills" onClick={()=> setClick(pre => !pre)}>Skill's</a>
+                <a href="#skills" onClick={()=> setClick(pre => !pre)}>Skills</a>
             </li>
             <li className='nav-item'>
-                <a href="#projects" onClick={()=> setClick(pre => !pre)}>Project's</a>
+                <a href="#projects" onClick={()=> setClick(pre => !pre)}>Projects</a>
             </li>
             <li className='nav-item'>
                 <a href="#contact" onClick={()=> setClick(pre => !pre)}>Contact Me</a>
