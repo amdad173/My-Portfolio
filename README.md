@@ -1,6 +1,7 @@
 # My Portfolio
 
-This project is created using react (create-react-app). Firebase is used for the backend. Firebase Authentication, database, and storage are used in this project.
+Welcome to my dynamic portfolio, a project I've crafted for practical experience, especially with Firebase integration. Using React for the frontend and Firebase for user authentication, data storage, and management, this portfolio offers a glimpse into my journey in web development. One unique feature is the login functionality, which grants me secure access to edit key sections, including the introduction, skills, and projects. With this capability, I can easily update my profile, showcase my skills, and add or modify projects, providing a real-time reflection of my evolving expertise in the tech world.
+[LIVE LINK](https://amdad-portfolio.onrender.com)
 
 # Firebase account
 
