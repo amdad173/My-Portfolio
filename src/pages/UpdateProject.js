@@ -18,6 +18,8 @@ const UpdateProject = () => {
   const [imageUpload, setImageUpload] = useState(null)
   const [imageUpdate, setImageUpdate] = useState(null)
   const [imageUrls, setImageUrls] = useState([])
+  const [serialNo, setSerialNo] = useState(Number)
+
   const [message, setMessage] = useState("");
   const [count, setCount] = useState(0);
 
@@ -30,6 +32,7 @@ const UpdateProject = () => {
         setDescription(project.description)
         setKeywordList([...project.keywords])
         setFolderRef(project.imageFolder)
+        setSerialNo(project.serialNo)
         // console.log(response.data())
 
         //return image info as object array
@@ -71,6 +74,7 @@ const UpdateProject = () => {
         url: projectUrl,
         description: description,
         keywords: keywordList,
+        serialNo: serialNo
       })
       setMessage("Updated Successfully")
       // alert("Updated successfully")
@@ -177,6 +181,13 @@ const UpdateProject = () => {
             placeholder='Descriptoin'
             value={description}
             onChange={(e)=> setDescription(e.target.value)}
+            required
+          />
+          <input type="number"
+            min={1}
+            placeholder='Serial No.'
+            value={serialNo}
+            onChange={(e)=> setSerialNo(e.target.value)}
             required
           />
           {/* keyword and keyword list section */}

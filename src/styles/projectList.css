@@ -1,3 +1,4 @@
+
 .project-list{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -105,7 +106,22 @@
     color: var(--light_green);
 }
 
-/* edit and delete */
+/* load more button on projectlist */
+.loadMore-btn{
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    gap:5px;
+    padding:5px 10px;
+    margin: 20px auto 0;
+}
+.loadMore-btn:hover{
+    background-color: var(--dark_blue);
+}
+.icon-style{
+    margin-top: 1px;
+}
+/* end */
 
 @media (max-width:768px) {
     .project-list{

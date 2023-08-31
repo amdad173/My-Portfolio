@@ -10,6 +10,7 @@ const CreateProject = () => {
   const [description, setDescription] = useState("")
   const [keyword, setKeyword] = useState("")
   const [keywordList, setKeywordList] = useState([])
+  const [serialNo, setSerialNo] = useState(1)
   const [message, setMessage] = useState("")
   
   const handleSubmit = async (e)=>{
@@ -20,7 +21,8 @@ const CreateProject = () => {
         url: projectUrl,
         description: description,
         keywords: keywordList,
-        imageFolder: `${projectName}_${v4()}`
+        imageFolder: `${projectName}_${v4()}`,
+        serialNo: serialNo
       })
 
       const name = projectName
@@ -57,6 +59,13 @@ const CreateProject = () => {
             placeholder='Descriptoin'
             value={description}
             onChange={(e)=> setDescription(e.target.value)}
+            required
+          />
+          <input type="number"
+            min={1}
+            placeholder='Serial No.'
+            value={serialNo}
+            onChange={(e)=> setSerialNo(e.target.value)}
             required
           />
           {/* keyword and keyword list section */}

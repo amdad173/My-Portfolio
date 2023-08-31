@@ -38,7 +38,7 @@ const SkillsList = ({frontend, backend, tools, learning}) => {
         <h2>MY SKILLS</h2>
         <div className='skill-slider' ref={skillSliderRef}>
           <div className='skill-card left-animation'>
-            <h3>FRONTEND DEVELOBMENT</h3>
+            <h3>FRONTEND DEVELOPMENT</h3>
             <p>
               {frontend.map((item, index)=>{
                 return <span key={index}>{item}</span>
@@ -47,7 +47,7 @@ const SkillsList = ({frontend, backend, tools, learning}) => {
           </div>
 
           <div className='skill-card right-animation'>
-            <h3>BACKEND DEVELOBMENT</h3>
+            <h3>BACKEND DEVELOPMENT</h3>
             <p>
               {backend.map((item, index)=>{
                 return <span key={index}>{item}</span>

@@ -68,8 +68,11 @@ const Home = () => {
   const getProjects = async ()=>{
     try{
         const response = await getDocs(collection(db, "projects"))
-        setProjects(response.docs.map((doc)=>{
-            return {...doc.data(), id: doc.id} //object with data and id, because id not provided inside data
+        const data = response.docs.map((doc)=>{
+          return {...doc.data(), id: doc.id} //object with data and id, because id not provided inside data
+        });
+        setProjects(data.sort((a, b)=>{
+            return a.serialNo - b.serialNo;
         }))
         // console.log(response)
     }catch(error){

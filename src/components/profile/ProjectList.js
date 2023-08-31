@@ -1,13 +1,21 @@
 import Images from '../Images'
 import {BiLinkExternal} from "react-icons/bi"
+import {LuLoader} from "react-icons/lu"
 import "../../styles/projectList.css"
+import { useState } from 'react'
 
 const ProjectList = ({projects}) => {
+  const [showProjects, setShowProjects] = useState([...projects.slice(0,3)])
+  const addProjects = () =>{
+    const start = showProjects.length
+    const end = start + 3
+    setShowProjects(pre => [...pre, ...projects.slice(start, end)])
+  }
   return (
     <div id='projects' className='container'>
       <h2>MY PROJECTS</h2>
       <div className='project-list'>
-        {projects.map((project, index)=>{
+        {showProjects.map((project, index)=>{
                   return (
                     <div className='project-container' key={index}>
                       <Images folder={project?.imageFolder} />     
@@ -23,6 +31,17 @@ const ProjectList = ({projects}) => {
                   )
               })}
       </div>
+      {
+        (projects.length > 1 && projects.length !== showProjects.length) 
+        && 
+        <button
+          className='loadMore-btn' 
+          onClick={addProjects}
+        >
+          Load more
+          <LuLoader className="icon-style"/>
+        </button>
+      }
     </div>
   )
 }

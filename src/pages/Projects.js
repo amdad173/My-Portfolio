@@ -16,8 +16,11 @@ const Projects = () => {
        const getData = async ()=>{
             try{
                 const response = await getDocs(collection(db, "projects"))
-                setData(response.docs.map((doc)=>{
+                const data = response.docs.map((doc)=>{
                     return {...doc.data(), id: doc.id} //object with data and id, because id not provided inside data
+                });
+                setData(data.sort((a, b)=>{
+                    return a.serialNo - b.serialNo;
                 }))
                 // console.log(response)
             }catch(error){
@@ -67,7 +70,7 @@ const Projects = () => {
                             <Images folder={project?.imageFolder} />     
                             <div className='project-info'>
                                 <div>
-                                <h3>{project?.name}</h3>
+                                <h3>{project.serialNo}.  {project?.name}</h3>
                                 <a href={project?.url} target="_blank" rel="noreferrer"><BiLinkExternal /></a>
                                 </div>
                                 <p className='project-description'>{project?.description}</p>
